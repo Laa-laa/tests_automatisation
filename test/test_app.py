@@ -4,7 +4,8 @@ import pytest
 from datetime import datetime
 from src.main import App
 from src.ohce import OHCE
-
+from test_ohce_builder import OHCEBuilder
+from src.langues import FR, EN
 
 @pytest.fixture               # ← décorateur obligatoire
 def ohce():
@@ -51,6 +52,30 @@ def test_cycle_complet(monkeypatch, capsys):
     assert "kayak" in captured.out
     assert "Bien dit!" in captured.out
     assert "au revoir" in captured.out
+
+def test_palindrome_en_francais():
+    ohce = OHCEBuilder().parlant(FR).build()
+    result = ohce.Palindrome("kayak")
+    assert result == "bonjour\nkayak\nBien dit!\nau revoir"
+
+
+def test_palindrome_en_anglais():
+    ohce = OHCEBuilder().parlant(EN).build()
+    result = ohce.Palindrome("madam")
+    assert result == "hello\nmadam\nWell said!\ngoodbye"
+
+
+def test_non_palindrome_en_fr():
+    ohce = OHCEBuilder().parlant(FR).build()
+    result = ohce.Palindrome("chat")
+    assert result == "bonjour\ntahc\nau revoir"
+
+
+def test_salutations_en_anglais():
+    ohce = OHCEBuilder().parlant(EN).build()
+    result = ohce.Palindrome("cat")
+    assert result.startswith("hello")
+    assert result.endswith("goodbye")
 
 
 class FakeDateTime:
