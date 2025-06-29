@@ -1,10 +1,17 @@
+import locale
 from ohce import OHCE
-from langues import FR
+from langues import FR, EN
 from periode import Horloge
+
 
 class App:
     def __init__(self):
-        langue = FR
+        lang_code = locale.getlocale()[0]
+        if lang_code and lang_code.startswith("fr"):
+            langue = FR
+        else:
+            langue = EN
+
         horloge = Horloge()
         self.ohce = OHCE(langue=langue, horloge=horloge)
 
