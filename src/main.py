@@ -1,9 +1,12 @@
 from ohce import OHCE
-from langues import FR, EN
+from langues import FR
+from periode import Horloge
 
 class App:
     def __init__(self):
-        self.ohce = OHCE(langue=FR)  # On injecte la langue ici
+        langue = FR
+        horloge = Horloge()
+        self.ohce = OHCE(langue=langue, horloge=horloge)
 
     def once(self):
         user_input = input("> ")
