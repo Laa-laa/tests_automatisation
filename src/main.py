@@ -1,18 +1,19 @@
 from datetime import datetime
+from src.ohce import OHCE
 
 class App:
+    def __init__(self):
+        self.ohce = OHCE()
+
     def saluer(self) -> str:
         hour = datetime.now().hour
         if 5 < hour < 18:
             return "Bonjour"
         return "Bonsoir"
-        
-    def mirror(self, text: str) -> str:
-        return text[::-1]
 
     def once(self):
         user_input = input("> ")
-        print(self.mirror(user_input))
+        print(self.ohce.Palindrome(user_input))
 
     def run(self):
         salutation = self.saluer()

@@ -42,6 +42,16 @@ def test_bonsoir(monkeypatch):
     app = App()
     assert app.saluer() == "Bonsoir"
 
+def test_cycle_complet(monkeypatch, capsys):
+    inputs = iter(["kayak"])
+    monkeypatch.setattr(builtins, "input", lambda _: next(inputs))
+    app = App()
+    app.once()
+    captured = capsys.readouterr()
+    assert "kayak" in captured.out
+    assert "Bien dit!" in captured.out
+    assert "au revoir" in captured.out
+
 
 class FakeDateTime:
     def __init__(self, fake_hour):
