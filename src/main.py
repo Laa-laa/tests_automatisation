@@ -1,5 +1,5 @@
-from src.ohce import OHCE
-from src.langues import FR
+from ohce import OHCE
+from langues import FR, EN
 
 class App:
     def __init__(self):
